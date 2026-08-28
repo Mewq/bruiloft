@@ -23,3 +23,18 @@ schermvullend als app te gebruiken.
   privé en gebruik Netlify Drop met een geheime URL, of Cloudflare Pages met
   toegangsbeperking.
 - `.nojekyll` staat erbij zodat GitHub Pages het bestand niet verbouwt.
+
+## De app renderen tijdens ontwikkeling
+
+`tools/render.py` start een lokale server voor `docs/` en fotografeert elk
+tabblad met de voorgeïnstalleerde Chromium (geen npm of Playwright nodig — de
+DevTools-koppeling zit in `tools/cdp.py`):
+
+```
+python3 tools/render.py            # iPhone-formaat, PNG's in shots/
+python3 tools/render.py 1280 800   # eigen breedte en hoogte
+```
+
+Per tab print het script de viewporthoogte, de hoogte van de app-schil en de
+hoogte van de inhoud — handig om te controleren of de app de volledige
+verticale ruimte vult.
