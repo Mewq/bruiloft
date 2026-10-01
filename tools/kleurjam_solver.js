@@ -96,7 +96,7 @@ if (require.main === module) {
   const which = process.argv.slice(3).map(Number);
   (which.length ? which : levels.map((_, i) => i + 1)).forEach(n => {
     const l = levels[n - 1], t = Date.now();
-    const r = solve(eng, l, 1500000);
+    const r = solve(eng, l, 4000000);
     console.log(n, l.name, "par", l.par, "-> kortste", r.par, r.capped ? "(afgebroken)" : "", r.states, "standen", (Date.now() - t) + "ms");
   });
 }
