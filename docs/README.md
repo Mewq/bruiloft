@@ -38,3 +38,29 @@ python3 tools/render.py 1280 800   # eigen breedte en hoogte
 Per tab print het script de viewporthoogte, de hoogte van de app-schil en de
 hoogte van de inhoud — handig om te controleren of de app de volledige
 verticale ruimte vult.
+
+## De app bewerken
+
+`docs/index.html` is een gebundelde pagina; de app en het spel staan er als
+ingepakte tekst in. Uitpakken, bewerken en weer inpakken:
+
+```
+python3 tools/bundle.py unpack bron     # bron/app.html en bron/game.html
+python3 tools/bundle.py pack bron       # terug in docs/index.html
+```
+
+## Color Jam-levels
+
+- `tools/kleurjam_solver.js` zoekt de kortste oplossing van een level met
+  precies de spelregels uit het spel zelf.
+- `tools/kleurjam_generate.js` bouwt nieuwe, gegarandeerd oplosbare levels
+  (achterstevoren vanaf een leeg bord) en zoekt de lastigste varianten.
+- `tools/kleurjam_select.js` kiest daaruit een oplopende reeks en voegt waar
+  het kan verf, een slot of vorst toe — alleen als de oplosser bevestigt dat
+  het level oplosbaar blijft.
+
+## Je gegevens
+
+Alles wat jullie invullen staat in de browser van het toestel zelf, niet op
+GitHub. Een nieuwe versie van de site verandert daar niets aan. Maak via het
+beginscherm af en toe een back-up; die bevat alles, ook de foto's.
