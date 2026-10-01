@@ -53,14 +53,14 @@ const kinds = ["verf", "slot", "vorst"];
 const out = chosen.map((l, i) => {
   let best = l;
   if (i % 2 === 1) {
-    for (let t = 0; t < 30; t++) {
+    for (let t = 0; t < 9; t++) {
       const c = twist(best, kinds[(i + t) % 3]);
       if (!c) continue;
-      const r = solve(eng, c, 300000);
+      const r = solve(eng, c, 150000);
       if (r.par && r.par > best.par) { c.par = r.par; c.extra = r.par - need(c); c.path = r.path; best = c; break; }
     }
   }
-  const r = solve(eng, best, 1500000);   // eindcontrole met ruime grens
+  const r = solve(eng, best, 400000);   // eindcontrole met ruime grens
   if (!r.par) throw new Error("onoplosbaar na controle");
   best.par = r.par;
   return best;
