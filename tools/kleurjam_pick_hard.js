@@ -12,7 +12,7 @@ all.sort((a, b) => b.par - a.par);
 const chosen = [];
 for (const l of all) {
   if (chosen.length >= want) break;
-  if (chosen.every(c => differs(l, c) >= 4)) chosen.push(l);
+  if (chosen.every(c => differs(l, c) >= Number(process.env.KJ_DIFF || 4))) chosen.push(l);
 }
 chosen.sort((a, b) => a.par - b.par);
 process.stderr.write(chosen.map(l => l.rows + "x" + l.cols + " par " + l.par).join("\n") + "\n");

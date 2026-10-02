@@ -23,7 +23,7 @@ const COLORS = ["red", "orange", "yellow", "green", "teal", "blue", "purple", "p
 function cellsOf(p) { const a = []; for (let i = 0; i < p.len; i++) a.push(p.dir === "H" ? [0, i] : [i, 0]); return a; }
 
 function makeBoard() {
-  const N = pick([6, 6, 6, 7]);
+  const N = pick((process.env.KJ_SIZES || "6,6,6,7").split(",").map(Number));
   const grid = Array.from({length: N}, () => Array(N).fill(-1));
   const pieces = [];
   const free = (r, c, dir, len) => {
@@ -135,7 +135,7 @@ function analyse(board) {
         }
       }
     }
-    if (dist.size > 900000) return null;
+    if (dist.size > Number(process.env.KJ_CAP || 900000)) return null;
     frontier = next; depth++;
   }
   return {dist: bestD, state: best, states: dist.size};
@@ -187,7 +187,7 @@ try { found = JSON.parse(fs.readFileSync(outFile, "utf8")); } catch (e) {}
 const seenStates = new Set(found.map(f => JSON.stringify(f.blocks)));
 const boards = found.map(f => f.board).filter(Boolean);
 function keep(board, a) {
-  if (a.dist < 22) return;
+  if (a.dist < Number(process.env.KJ_MIN || 22)) return;
   const lvl = toLevel(board, a.state);
   const k = JSON.stringify(lvl.blocks);
   if (seenStates.has(k)) return;
@@ -204,7 +204,7 @@ for (let t = 0; t < tries; t++) {
   let a = analyse(board);
   if (!a) continue;
   let stale = 0;
-  while (stale < 90) {
+  while (stale < Number(process.env.KJ_STALE || 90)) {
     const nb = mutate(board);
     if (!nb) { stale++; continue; }
     const na = analyse(nb);
